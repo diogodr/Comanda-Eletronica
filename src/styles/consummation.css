@@ -1,0 +1,96 @@
+.root {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  background: #3E3B47;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 15%;
+  padding-top: 10%;
+}
+
+.root .header {
+  width: 100%;
+  height: 12vh;
+  background: #28262E;
+
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.root .header-content {
+  width: 100%;
+  height: 12vh;
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.root .body-list {
+  width: 100%;
+  height: 88vh;
+  bottom: 0;
+  position: absolute;
+}
+
+.root .container-pedidos {
+  border-bottom: solid 1px #666360;
+  padding-right: 20px;  
+  padding-left: 20px;  
+}
+
+.root .body-list .pedidos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+  padding-top: 10px;
+}
+
+.root .body-list .pedidos p {
+  font-size: 14px;
+  color: #F4EDE8;
+  padding-bottom: 10px;
+}
+
+.root .body-list .items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+.root .body-list .items p {
+  font-size: 12px;
+  color: #ff9000;
+}
+
+
+.root .body-list .items .pcontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.root .body-list .items .pcontainer .second-column {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+
+

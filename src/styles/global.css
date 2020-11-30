@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    color: white;
+    background: #312E38;
+    height: '100%';
+    width: 100%;
+}
+
+body, input, button, textarea {
+    font: 600 18px 'Roboto Slab', Nunito, sans-serif;
+}
