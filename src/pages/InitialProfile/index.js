@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import '../../styles/initialprofile.css';
 
 function InitialProfile(props) {
-  console.log('Teste: ', props)
 
   return (
     <div className="root">
