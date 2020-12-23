@@ -15,7 +15,6 @@ function QrCodeAuth() {
 	const handleScan = code => {
 		if (code) {
 			api.get(`/api/order/info/${code}`).then(response => {
-				console.log(response.data);
 			//	setResult(response);
 				history.push({ pathname: '/home', state: response.data });
 			});

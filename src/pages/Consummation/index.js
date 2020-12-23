@@ -5,6 +5,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { BsChevronDown } from "react-icons/bs";
 import { BsChevronUp } from "react-icons/bs";
 import { useHistory } from 'react-router-dom';
+import { BsFillTrashFill } from "react-icons/bs";
 
 import api from '../../services/api';
 
@@ -16,26 +17,42 @@ function Consummation() {
 
   const consummations = useSelector(state => state.consummations);
 
-  console.log("LALALA:", consummations)
-
-  const [infoOpen, setInfoOpen] = useState(false)
-
-  const handleToggleInfo = () => {
-    setInfoOpen(infoOpen ? false : true)
-  }
+  const [infoOpen, setInfoOpen] = useState(0)
 
   const { goBack } = useHistory();
 
   const getConsummations = async () => {
-    console.log("UÈ?")
     const response = await api.get(`/api/order/consumer/0`);
-    console.log("REPONSE: ", response.data)
     dispatch(actions.getConsummations(response.data));
   }
 
   useEffect(() => {
     getConsummations();
   }, [])
+
+  function handleRemoveRequests(order) {
+    api.delete(`/api/order/consumer/0/${order}`)
+      .then(function(response) {
+      console.log(response.data)
+      })
+
+    let newOrders = consummations.orders.filter(
+      orderfilter => orderfilter.order !== order
+    )    
+    let newConsummations = {...consummations, orders : newOrders}
+    dispatch(actions.getConsummations(newConsummations)); 
+  }
+
+  async function handleRemoveItems(order, code) {
+    const response = await api.delete(`/api/order/consumer/0/${order}/${code}`)
+    console.log(response.data)
+
+    getConsummations()
+  }
+
+  const handleToggleInfo = (order) => {
+    setInfoOpen(infoOpen === 0 ? order : 0)
+  }
 
   return (
     <div className="root">
@@ -52,27 +69,27 @@ function Consummation() {
               <li key={order.order}>
                 <div className="container-pedidos ">
                   <div className="pedidos">
-                    <p>Pedido: {order.order}</p>
+                    <p>Pedido: {order.order}  <BsFillTrashFill type="button" onClick={() => handleRemoveRequests(order.order)} style={{ fontSize: 14, marginLeft: 10 }}/></p>
                     <p>Total: R${order.total}</p>
                   </div>
                   {order.items.map(item =>
-                    <div key={item.code} className="items" style={{ transition: '0.2s', height: infoOpen ? "" : "0px", padding: infoOpen ? 12 : 0 }}>
-                      <p className="pcontainer">
+                    <div key={item.code} className="items" style={{ transition: '0.2s', height: infoOpen === order.order ? "" : "0px", padding: infoOpen === order.order ? 12 : 0 }}>
+                      <div className="pcontainer">
                         <div className="first-column">
-                          <p>Código: {item.code}</p>
+                          <p>Código: {item.code} <BsFillTrashFill type="button" onClick={() => handleRemoveItems(order.order, item.code)} style={{ fontSize: 9, marginLeft: 10 }}/></p>
                           <p>Item: {item.description}</p>
                         </div>
                         <div className="second-column">
                           <p>Quantidade: {item.quantity}</p>
                           <p>Preço: {item.price}</p>
                         </div>
-                      </p>
+                      </div>
                     </div>
                   )}
                   <div style={{ fontSize: 12, display: "flex", justifyContent: 'center' }}>
-                    {infoOpen ?
-                      (<BsChevronUp type="button" onClick={handleToggleInfo} />) :
-                      (<BsChevronDown type="button" onClick={handleToggleInfo} />)
+                    {infoOpen === order.order ?
+                      (<BsChevronUp type="button" onClick={() =>handleToggleInfo(order.order)} />) :
+                      (<BsChevronDown type="button" onClick={() =>handleToggleInfo(order.order)} />)
                     }
                   </div>
                 </div>

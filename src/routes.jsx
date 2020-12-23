@@ -8,8 +8,8 @@ import {
 import Home from './pages/Home';
 import QrCodeAuth from './pages/QrCodeAuth';
 import Consummation from './pages/Consummation';
-import InitialProfile from './pages/InitialProfile';
 import Requests from './pages/Requests';
+import Product from './pages/Product/Product';
 
 function Routes() {
 	return (
@@ -23,6 +23,7 @@ function Routes() {
 				</Route>
 				<Route path="/requests"component={Requests}/>
 				<Route path="/consummation"component={Consummation}/>
+				<Route path="/product"component={Product}/>
 			</Switch>
 		</BrowserRouter>
 	);
