@@ -15,12 +15,15 @@ const initial_state = {
           price: "0",
         }
       ],
-    }]
+    }
+  ]
 };
 
 //Aqui cria-se um TYPE somente para ficar fácil de usar o mesmo nome nas actions.
 export const actionsTypes = {
-  GET_CONSUMMATIONS: 'CONSUMMATIONS/GET'
+  GET_CONSUMMATIONS: 'CONSUMMATIONS/GET',
+  INSERT_ORDER: "CONSUMMATIONS/INSERT_ORDER",
+  DELETE_ORDER: "CONSUMMATIONS/DELETE_ORDER"
 };
 
 //Aqui está listando todas as actions de consummations
@@ -31,8 +34,16 @@ export const actions = {
       //Esse aqui é o TYPE ali de cima, ou seja é uma action que Busca.
       type: actionsTypes.GET_CONSUMMATIONS,
       //O Payload é o resultado da api que vai ser usado no reducer, ou seja no estado global.
-      payload    
+      payload
     });
+  },
+  insertOrder: payload => {
+    type: actionsTypes.INSERT_ORDER,
+    payload
+  }, 
+  deleteOrder: payload => {
+    type: actionsTypes.DELETE_ORDER,
+    payload
   }
 };
 
@@ -43,6 +54,12 @@ const consummationReducer = (state = initial_state, action) => {
     case actionsTypes.GET_CONSUMMATIONS:
       //Aqui ele verificou qual é a action, e seta no estado global, a resposta do Payload.
       return action.payload;
+    case actionsTypes.INSERT_ORDER:
+      let novoState = state;
+      let novasOrdens = state.orders;
+      novasOrdens.push(action.payload);
+      novoState.orders = novasOrdens;
+      return novoState;
     default:
       //Por padrão se não tiver alteração o reducer devolve o state já existente.
       return state

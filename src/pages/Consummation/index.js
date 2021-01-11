@@ -19,6 +19,8 @@ function Consummation() {
 
   const [infoOpen, setInfoOpen] = useState(0)
 
+  const [orders, setOrders] = useState([]);
+
   const { goBack } = useHistory();
 
   const getConsummations = async () => {
@@ -41,6 +43,12 @@ function Consummation() {
     )    
     let newConsummations = {...consummations, orders : newOrders}
     dispatch(actions.getConsummations(newConsummations)); 
+  }
+
+  function inserirOrder() {
+    let order = { order: 1234, total: "22" };
+
+    dispatch(actions.insertOrder(order));
   }
 
   async function handleRemoveItems(order, code) {
